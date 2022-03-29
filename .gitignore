@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+xmd_apps/vbd-visionaidashboard-api/docker-compose.yml
+xmd_apps/vbd-visionaidashboard-api/docker
+xmd_apps/vbd-visionaidashboard-api/project/settings/settings.py
+xmd_apps/vbd-visionaidashboard-webapp/docker-compose.yml
+xmd_apps/vbd-visionaidashboard-webapp/src/app/app.constants.ts
