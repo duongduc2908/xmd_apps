@@ -1,0 +1,30 @@
+<div class="flex flex-col w-full p-3">
+    <div class="button-filter flex items-center justify-between p-3 mb-3">
+        <div class="text-4xl font-bold">Hoạt động khách hàng</div>
+    </div>
+    <div class="flex flex-col w-full p-3">
+        <div class="flex flex-col w-full">
+            <vai-analytics-quick-filter
+                [isFilterLayout]="false"
+                [isFilterDate]="true"
+                [isFilterCustomer]="true"
+            >
+            </vai-analytics-quick-filter>
+        </div>
+        <div class="total-text leading-[24px] font-normal text-[14px]">
+            Tổng số khách hàng: {{paging.length}}
+        </div>
+        <fuse-card class="flex flex-col w-full p-[12px] mt-[24px]">
+            <vai-vision-table
+                [displayedColumns]="displayedColumns"
+                [dataSource]="dataSource"
+                [isTimeFormat]="true"
+                (action)="tableAction($event)"
+            >
+            </vai-vision-table>
+            <vai-vision-paging [paging]="paging"
+                               (pageChange)="onPageChange($event)">
+            </vai-vision-paging>
+        </fuse-card>
+    </div>
+</div>

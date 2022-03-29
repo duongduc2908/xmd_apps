@@ -1,0 +1,39 @@
+<vai-analytics-wrapper class="w-full" [title]="'Tổng quan'">
+    <div class="flex flex-col w-full p-3">
+        <vai-analytics-quick-filter></vai-analytics-quick-filter>
+        <ng-container *ngIf="customerVisitSummaryChartData">
+            <vai-summary-chart class="mt-4" [chartData]="customerVisitSummaryChartData"></vai-summary-chart>
+        </ng-container>
+        <div class="grid grid-cols-1 w-full mt-4">
+            <ng-container *ngIf="customVisitByTimeChartData">
+                <vai-chart-wrapper
+                    [title]="customVisitByTimeChartData.title">
+                    <vai-bar-stacked-vertical-chart
+                        [chartData]="customVisitByTimeChartData"
+                    ></vai-bar-stacked-vertical-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+        </div>
+        <div class="grid grid-cols-3 gap-4 w-full min-w-0 mt-4">
+            <ng-container *ngIf="customVisitByGenderChartData">
+                <vai-chart-wrapper
+                    [title]="customVisitByGenderChartData.title">
+                    <vai-pie-chart [chartData]="customVisitByGenderChartData"></vai-pie-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="customVisitByAgeChartData">
+                <vai-chart-wrapper [title]="customVisitByAgeChartData.title">
+                    <vai-pie-chart [chartData]="customVisitByAgeChartData"></vai-pie-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="customVisitAvgByAgeChartData">
+                <vai-chart-wrapper [title]="customVisitAvgByAgeChartData.title">
+                    <vai-bar-chart [chartData]="customVisitAvgByAgeChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="averageVisitCustomerChartData">
+            <vai-summary-chart class="mt-4" [chartData]="averageVisitCustomerChartData"></vai-summary-chart>
+        </ng-container>
+    </div>
+</vai-analytics-wrapper>

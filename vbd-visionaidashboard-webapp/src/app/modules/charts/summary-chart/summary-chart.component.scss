@@ -1,0 +1,49 @@
+.summary-chart::ng-deep {
+    fuse-card {
+        .chart-tooltip {
+            cursor: pointer;
+        }
+        .chart-top {
+            margin-bottom: 24px;
+            .chart-title {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                color: #f6f6f6;
+            }
+        }
+        .chart-bottom {
+            .chart-result {
+                .total {
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 40px;
+                    line-height: 48px;
+                    color: #ffffff;
+                }
+                .unit {
+                    font-style: normal;
+                    font-size: 13px;
+                    line-height: 13px;
+                    color: #ffffff;
+                }
+            }
+        }
+        .chart-action {
+            .impact {
+                .value {
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 24px;
+                }
+                .value-down {
+                    color: #e8001c;
+                }
+                .value-up {
+                    color: #2dbc15;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<div class="video-dialog w-[720]">
+    <div matDialogTitle class="h-[48px] m-0">
+        <button
+            class="ml-auto h-full float-right flex items-center mr-[15px]"
+            mat-icon-button
+            mat-dialog-close
+        >
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'">
+            </mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content class="w-full">
+        <video [src]="data" controls autoplay class="w-full h-full"></video>
+    </div>
+</div>

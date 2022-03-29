@@ -1,0 +1,19 @@
+<div class="flex flex-wrap items-center font-medium pr-6 pl-6 pt-6">
+    <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
+        <div *ngIf="i === 0">
+            <a class="whitespace-nowrap text-disabled font-normal text-[14px] leading-[24px]">
+                {{breadcrumb.label}}
+            </a>
+        </div>
+        <div class="flex items-center ml-1 whitespace-nowrap" *ngIf="i > 0">
+            <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_solid:chevron-right'">
+            </mat-icon>
+            <span
+                class="ml-1 text-default font-normal text-[14px] leading-[24px]"
+                [ngClass]="{'text-disabled': i < breadcrumbs.length - 1}"
+            >
+                {{ breadcrumb.label }}
+            </span>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,56 @@
+<div class="vision-ai-header flex items-center w-full fixed top-0 right-0">
+    <div class="header-left flex items-center">
+        <button
+            (click)="toggleNavigation('mainNavigation')"
+            class="ml-3 mr-3 icon-menu"
+            mat-icon-button
+        >
+            <img
+                alt="vision-menu"
+                src="assets/images/icons/vision-menu-icon.svg"
+            />
+        </button>
+        <div (click)="goHome()" class="header-logo w-[142px] cursor-pointer">
+            <img
+                alt="vision-menu"
+                src="assets/images/logo/vision-ai-logo.svg"
+            />
+        </div>
+    </div>
+    <div class="header-right flex items-center justify-between w-full">
+        <div class="select-store w-60"
+            [ngStyle]="{'visibility': showroomType || !_userService.isAdmin ? 'hidden' : 'visible'}"
+        >
+            <mat-form-field class="w-full">
+                <mat-select
+                    [value]="store"
+                    (selectionChange)="onSelectionChange($event)"
+                >
+                    <mat-option
+                        *ngFor="let item of stores"
+                        [value]="item.id"
+                    >
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="action flex items-center">
+            <button [matMenuTriggerFor]="userActions" class="mr-3" mat-stroked-button>
+                {{_userService.user$.name}}
+                <img
+                    alt="vision-user-icon"
+                    class="ml-3"
+                    src="assets/images/logo/vision-ai-user.svg"
+                />
+            </button>
+        </div>
+    </div>
+</div>
+
+<mat-menu #userActions="matMenu" [xPosition]="'before'" class="keep-light">
+    <button (click)="onClickLogout()" mat-menu-item>
+        <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>
+        <span>Đăng xuất</span>
+    </button>
+</mat-menu>

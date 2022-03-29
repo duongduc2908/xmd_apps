@@ -1,0 +1,27 @@
+<div class="logout-confirm-dialog w-[312px]">
+    <div mat-dialog-title class="text-xl">Xác nhận đăng xuất</div>
+    <div mat-dialog-content>Bạn có muốn thoát khỏi hệ thống?</div>
+    <div mat-dialog-actions class="p-0 pt-8 pb-2">
+        <div class="flex flex-row justify-end w-full">
+            <button
+                [color]="'primary'"
+                [type]="'button'"
+                class="fuse-mat-button rounded-md"
+                mat-dialog-close
+                mat-stroked-button
+            >
+                Hủy
+            </button>
+            <button
+                (click)="onLogout()"
+                [color]="'primary'"
+                [type]="'button'"
+                class="fuse-mat-button rounded-md"
+                mat-dialog-close
+                mat-flat-button
+            >
+                Đăng xuất
+            </button>
+        </div>
+    </div>
+</div>

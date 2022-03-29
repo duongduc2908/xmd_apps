@@ -1,0 +1,8 @@
+/.git
+/share
+/media
+/.env
+/.vscode
+/db.sqlite3
+/keys
+**/node_modules

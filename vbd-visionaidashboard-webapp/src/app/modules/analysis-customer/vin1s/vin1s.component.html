@@ -1,0 +1,79 @@
+<vai-analytics-wrapper class="w-full" [title]="showroomType === 'vin1s' ? 'Vin1s' : 'Vin3s'">
+    <div class="flex flex-col w-full p-3">
+        <vai-analytics-quick-filter></vai-analytics-quick-filter>
+        <div class="grid grid-cols-3 gap-4 w-full min-w-0 mt-4">
+            <ng-container *ngIf="totalVisitChartData">
+                <vai-chart-wrapper [title]="totalVisitChartData.title">
+                    <vai-bar-chart
+                        [isShowLegend]="false"
+                        [chartData]="totalVisitChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="timeVisitAvgChartData">
+                <vai-chart-wrapper [title]="timeVisitAvgChartData.title">
+                    <vai-bar-chart
+                        [isShowLegend]="false"
+                        [chartData]="timeVisitAvgChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="customerVisitAtRushHourChartData">
+                <vai-chart-wrapper [title]="customerVisitAtRushHourChartData.title">
+                    <vai-bar-chart
+                        [isShowLegend]="false"
+                        [chartData]="customerVisitAtRushHourChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+        </div>
+        <div class="grid grid-cols-1 w-full mt-4">
+            <ng-container *ngIf="situationCompareChartData">
+                <vai-chart-wrapper
+                    [title]="situationCompareChartData.title">
+                    <vai-line-chart
+                        [chartData]="situationCompareChartData"
+                    ></vai-line-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+        </div>
+        <div class="grid grid-cols-2 gap-4 w-full min-w-0 mt-4">
+            <ng-container *ngIf="customVisitByGenderChartData">
+                <vai-chart-wrapper [title]="customVisitByGenderChartData.title">
+                    <vai-bar-group-stacked-chart
+                        [chartData]="customVisitByGenderChartData"></vai-bar-group-stacked-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="customVisitByAgeChartData">
+                <vai-chart-wrapper [title]="customVisitByAgeChartData.title">
+                    <vai-line-stacked-are-chart
+                        [areaStyle]="false"
+                        [chartData]="customVisitByAgeChartData"></vai-line-stacked-are-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+        </div>
+        <div class="grid grid-cols-3 gap-4 w-full min-w-0 mt-4">
+            <ng-container *ngIf="nearestAverageByTimesChartData">
+                <vai-chart-wrapper [title]="nearestAverageByTimesChartData.title">
+                    <vai-bar-chart
+                        unit="ngày"
+                        [isShowLegend]="false"
+                        [chartData]="nearestAverageByTimesChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="averageByTimePeriodBackChartData">
+                <vai-chart-wrapper [title]="averageByTimePeriodBackChartData.title">
+                    <vai-bar-chart
+                        unit="ngày"
+                        [isShowLegend]="false"
+                        [chartData]="averageByTimePeriodBackChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+            <ng-container *ngIf="averageByTurnsChartData">
+                <vai-chart-wrapper [title]="averageByTurnsChartData.title">
+                    <vai-bar-chart
+                        unit="lần"
+                        [isShowLegend]="false"
+                        [chartData]="averageByTurnsChartData"></vai-bar-chart>
+                </vai-chart-wrapper>
+            </ng-container>
+        </div>
+    </div>
+</vai-analytics-wrapper>

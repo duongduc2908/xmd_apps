@@ -1,0 +1,35 @@
+<div class="flex flex-col line-bar-chart">
+    <div echarts
+         class="bar-chart"
+         (chartInit)="onChartInit($event)"
+         [options]="chartOption"
+         [theme]="'dark'"
+         [ngStyle]="{'height.px': chartHeight}">
+    </div>
+    <div class="flex flex-row justify-center mt-4 text-sm">
+        <div
+            class="flex flex-row items-center cursor-pointer mr-4"
+            (mouseleave)="onMouseleave(1)"
+            (mouseenter)="onMouseenter(1)"
+        >
+            <span class="w-[12px] h-[12px] inline-block mr-2 html2canvas-hotfix-2" style="background: #5A3FFF"></span>
+            <span>Đơn hàng</span>
+        </div>
+        <div
+            class="flex flex-row items-center cursor-pointer mr-4"
+            (mouseleave)="onMouseleave(2)"
+            (mouseenter)="onMouseenter(2)"
+        >
+            <span class="w-[12px] h-[12px] inline-block mr-2 html2canvas-hotfix-2" style="background: #1ED6FF"></span>
+            <span>Footfall</span>
+        </div>
+        <div
+            class="flex flex-row items-center cursor-pointer"
+            (mouseleave)="onMouseleave(0)"
+            (mouseenter)="onMouseenter(0)"
+        >
+            <span class="w-[12px] h-[12px] inline-block mr-2 html2canvas-hotfix-2" style="border-radius: 50%; border: 2px solid #FC993E"></span>
+            <span>Tỉ lệ chuyển đổi đơn hàng(%)</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="flex justify-center marketing-report-export-pdf keep-light h-screen overflow-auto">
+    <div class="flex flex-col w-[1152px] h-fit" #pdfScreen>
+        <div class="jspdf-page w-full p-8 pb-0">
+            <ng-container *ngIf="reportInfo">
+                <div class="flex flex-col">
+                    <div class="flex flex-row justify-between items-center">
+                        <div class="text-4xl font-bold report__title">{{reportInfo.name}}</div>
+                        <div data-html2canvas-ignore="true">
+                            <button
+                                class="fuse-mat-button rounded-md mat-primary"
+                                mat-flat-button
+                                (click)="onSaveAndExport()"
+                            >{{localIsSave ? 'Lưu & xuất báo cáo' : 'Xuất báo cáo'}}</button>
+                            <button
+                                class="fuse-mat-button rounded-md ml-3"
+                                mat-flat-button
+                                mat-dialog-close
+                                (click)="onClose()"
+                            >Đóng</button>
+                        </div>
+                    </div>
+                    <div class="report__sub-title">Thời gian áp dụng: Từ ngày {{reportInfo.startTime}} đến {{reportInfo.endTime}}</div>
+                    <div class="report__sub-title">Showroom áp dụng: {{reportInfo.stores}}</div>
+                </div>
+            </ng-container>
+            <div class="chart-wrapper">
+                <div class="chart-wrapper__title font-bold">Tổng quan</div>
+                <div class="chart-wrapper__content flex flex-row justify-around w-full">
+                    <div class="w-[480px]">
+                        <ng-container *ngIf="campaignChartData">
+                            <vai-pie-campaign-chart
+                                [displayColumn]="true"
+                                [chartData]="campaignChartData"
+                            ></vai-pie-campaign-chart>
+                        </ng-container>
+                    </div>
+                    <div class="grid grid-cols-2 gap-x-32 gap-y-16">
+                        <ng-container *ngFor="let summary of summaryChartData;">
+                            <div class="flex flex-col summary-item">
+                                <div class="summary-item__title">{{summary.name}}</div>
+                                <div class="flex flex-row items-center py-2 summary-item__content">
+                                    <div class="text-4xl mr-4 font-bold">{{summary.value}} {{summary.valueUnit}}</div>
+                                    <div
+                                        [ngClass]="{
+                                        'up': summary.changeType === 'positive',
+                                        'down': summary.changeType !== 'positive'
+                                    }"
+                                        class="rounded-full px-2 py-1 font-semibold flex flex-row items-center html2canvas-hotfix-4">
+                                        <div class="mr-2">
+                                            <img [src]="summary.changeType === 'positive' ? 'assets/images/icons/vision-arrow-up-circle.svg': 'assets/images/icons/vision-arrow-down-circle.svg'"/>
+                                        </div>
+                                        <div class="html2canvas-hotfix-3">{{summary.change}}{{summary.changeUnit}}</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col font-bold summary-item__desc">
+                                    <div>{{summary.text}}</div>
+                                    <div>{{summary.period}}</div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <div class="chart-wrapper__title font-bold">Hiệu quả chiến dịch theo cửa hàng</div>
+                <div class="chart-wrapper__content">
+                    <ng-container *ngIf="campaignPerformanceChartData">
+                        <vai-line-bar-grouped-chart
+                            [chartData]="campaignPerformanceChartData"></vai-line-bar-grouped-chart>
+                    </ng-container>
+                </div>
+            </div>
+            <ng-container *ngIf="orderFootfallChartData">
+                <ng-container *ngFor="let chartData of orderFootfallChartData.slice(0, 1)">
+                    <div class="chart-wrapper">
+                        <div class="chart-wrapper__title font-bold">{{chartData.title}}</div>
+                        <div class="chart-wrapper__content">
+                            <ng-container *ngIf="chartData">
+                                <vai-line-area-chart [chartData]="chartData"></vai-line-area-chart>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="jspdf-page w-full p-8 pt-0" *ngFor="let charts of orderFootfallSplitPageChartData">
+            <ng-container *ngFor="let chartData of charts">
+                <div class="chart-wrapper">
+                    <div class="chart-wrapper__title font-bold">{{chartData.title}}</div>
+                    <div class="chart-wrapper__content">
+                        <ng-container *ngIf="chartData">
+                            <vai-line-area-chart [chartData]="chartData"></vai-line-area-chart>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<perfect-scrollbar class="ps-show-always">
+    <div
+        class="chart-wrapper-compare flex gap-4 mb-4 items-center"
+        [ngClass]="{ 'justify-evenly': itemCount <= 3 }"
+    >
+        <ng-content></ng-content>
+    </div>
+</perfect-scrollbar>

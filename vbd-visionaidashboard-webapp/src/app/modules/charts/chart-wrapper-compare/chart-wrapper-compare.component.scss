@@ -1,0 +1,11 @@
+::ng-deep {
+    .chart-wrapper-compare > * {
+        min-width: 300px;
+    }
+    .ps {
+        .ps__thumb-x {
+            background-color: rgba(49, 151, 255, 0.4) !important;
+            border-radius: 0 !important;
+        }
+    }
+}

@@ -1,0 +1,229 @@
+body.dark {
+    fuse-card {
+        background-color: #0b2744;
+        border: 1px solid rgba(49, 151, 255, 0.2);
+        border-radius: 8px;
+    }
+
+    // Table - Vision - Table
+    .vision-table {
+        table {
+            th.mat-header-cell:first-of-type,
+            td.mat-cell:first-of-type,
+            td.mat-footer-cell:first-of-type {
+                padding-left: 5px;
+            }
+            th.mat-header-cell:last-of-type,
+            td.mat-cell:last-of-type,
+            td.mat-footer-cell:last-of-type {
+                padding-right: 0;
+            }
+            tr.mat-header-row {
+                height: 45px;
+            }
+            td.cdk-column-image_in {
+                width: 105px;
+            }
+            td.cdk-column-image_out {
+                width: 105px;
+            }
+            td.cdk-column-in_time {
+                padding-left: 10px;
+            }
+        }
+
+        .mat-icon-button:hover {
+            background: #3197ff !important;
+        }
+        .cell-item__link:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            color: #3197ff !important;
+        }
+
+        td,
+        th {
+            background: #0a2644;
+        }
+    }
+
+    // Material Paging
+    mat-paginator {
+        background: #0a2644 !important;
+        .mat-paginator-container {
+            justify-content: end !important;
+            padding: 0 !important;
+        }
+
+        .mat-paginator-navigation-next,
+        .mat-paginator-navigation-previous {
+            color: #3197ff !important;
+        }
+        .mat-button-disabled svg {
+            fill: #1d538e !important;
+        }
+
+        .mat-form-field.mat-paginator-page-size-select.mat-form-field-appearance-fill {
+            width: 55px;
+            .mat-form-field-wrapper .mat-form-field-flex {
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                border-radius: 0 !important;
+                background-color: transparent !important;
+            }
+            .mat-select-value-text {
+                color: #94a3b8 !important;
+            }
+        }
+    }
+
+    // Material - Tooltip
+    .mat-tooltip {
+        @apply bg-primary;
+    }
+
+
+    .mat-tooltip-trigger {
+        .tooltip-mat-icon__wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            padding: 5px;
+
+            mat-icon {
+                font-size: 14px;
+                color: #165DA9;
+                height: 20px !important;
+                min-height: 20px !important;
+                width: 20px !important;
+                min-width: 20px !important;
+            }
+        }
+        &:hover {
+            .tooltip-mat-icon__wrapper {
+                background-color: #0C345E;
+                mat-icon {
+                    color: #1D8BFA;
+                }
+            }
+        }
+    }
+
+    // Material - Button Toggle
+    .mat-button-toggle.mat-button-toggle-checked {
+        background-color: #113863;
+    }
+
+    // Navigation
+    fuse-vertical-navigation {
+        background-color: #051f3d;
+        a.fuse-vertical-navigation-item-active {
+            background: rgba(49, 151, 255, 0.8) !important;
+        }
+        .fuse-vertical-navigation-wrapper {
+            box-shadow: none;
+        }
+    }
+
+    vai-form-marketing-report {
+        .form-report {
+            label {
+                margin-bottom: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 24px;
+                display: inline-block;
+                color: rgba(255, 255, 255, 0.4);
+            }
+            .field-expand {
+                .mat-form-field-wrapper {
+                    margin-bottom: 10px !important;
+                }
+            }
+            .expand-item {
+                .mat-checkbox-layout {
+                    margin: 0;
+                    .mat-checkbox-label {
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 24px;
+                        color: rgba(255, 255, 255, 1);
+                    }
+                    .mat-checkbox-frame {
+                        border-color: #3197ff;
+                    }
+                    svg.mat-checkbox-checkmark {
+                        path.mat-checkbox-checkmark-path {
+                            stroke: #3197ff !important;
+                        }
+                    }
+                    .mat-checkbox-background {
+                        background-color: transparent;
+                        .mat-checkbox-checkmark {
+                            fill: #3197ff !important;
+                        }
+                    }
+                }
+            }
+            .mat-form-field-flex {
+                min-height: 40px !important;
+                .mat-input-element {
+                    padding: 0 !important;
+                }
+                .icon-clear {
+                    svg {
+                        stroke: #3197ff;
+                    }
+                }
+            }
+            .mat-datepicker-input {
+                &::placeholder {
+                    color: #ffffff !important;
+                }
+            }
+            .input-file {
+                &::placeholder {
+                    color: #ffffff !important;
+                }
+            }
+            .mat-datepicker-toggle {
+                .mat-icon-button {
+                    .mat-button-wrapper {
+                        .mat-datepicker-toggle-default-icon {
+                            fill: #f6f6f6;
+                        }
+                    }
+                }
+            }
+            .input-file-wrapper {
+                .icon-color-white {
+                    svg {
+                        stroke: #f6f6f6;
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+            .file-upload {
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+            .mat-btn {
+                background: rgba(49, 151, 255, 0.1) !important;
+                color: #3197ff;
+            }
+        }
+    }
+
+    mat-dialog-container {
+        .mat-dialog-actions {
+            .mat-stroked-button {
+                border-color: #006cda !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  webapp:
+    build:
+      context: .
+      dockerfile: docker/webapp/Dockerfile
+    container_name: webapp
+    #command: sleep infinity
+    #volumes:
+      #-/ ./:/var/www/html
+    ports:
+      - 8888:80

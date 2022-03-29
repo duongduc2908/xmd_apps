@@ -1,0 +1,36 @@
+<div class="flex flex-col w-full items-center">
+    <div class="relative flex justify-center w-full mt-2"
+         [ngStyle]="{'height.px': size}">
+        <div #chart
+             [ngStyle]="{
+             'height.px': size * 2,
+             'width.px': size * 2,
+             'top.px': - (size / 2)
+         }"
+             class="absolute"></div>
+    </div>
+    <div class="legend mt-4" *ngIf="chartLegend && chartLegend.length">
+        <div
+            [ngStyle]="{color: chartLegend[0].color}"
+            class="legend-value text-center font-bold text-[40px] leading-[48,41px]">
+            {{chartLegend[0].value}}/{{chartLegend[1].value}}
+        </div>
+        <div class="store-name font-[500] text-[14px] leading-[16px] pb-[12px] pt-2 mb-2 text-center"
+             *ngIf="chartData.storeName">
+            {{ chartData.storeName }}
+        </div>
+        <div class="text-sm">
+            <div class="grid grid-cols-4 mb-2" *ngFor="let legend of chartLegend; let i = index">
+                <div class="col-span-3">
+                    <span class="flex items-center cursor-pointer text-white">
+                        <span class="w-[12px] h-[12px] inline-block mr-2"
+                              [ngStyle]="{ 'background-color': i === 0 ? legend.color : '' }">
+                        </span>
+                        <span>{{legend.name}}</span>
+                    </span>
+                </div>
+                <div class="col-span-1 text-right">{{legend.value}}</div>
+            </div>
+        </div>
+    </div>
+</div>

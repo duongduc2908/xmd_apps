@@ -1,0 +1,206 @@
+<div class="analytics-filter flex flex-col w-[280px]">
+    <div
+        class="analytics-filter__header flex justify-between items-center bg-primary h-[56px] p-[16px]"
+    >
+        <div class="filter-title font-semibold text-base leading-8">
+            Tìm kiếm nâng cao
+        </div>
+        <button
+            class="filter-drawer-close ml-auto"
+            mat-icon-button
+            (click)="closeFilter()"
+        >
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'">
+            </mat-icon>
+        </button>
+    </div>
+    <form
+        class="analytics-filter__content flex flex-col justify-between h-full p-[16px]"
+    >
+        <div class="filter-drawer-item">
+            <div
+                class="filter-field"
+                [hidden]="filterParams.showroomType || !_userService.isAdmin"
+            >
+                <div class="mb-3 label">Cửa hàng</div>
+                <mat-form-field class="w-full min-h-[40px]">
+                    <mat-select
+                        [value]="filterParams.store"
+                        (valueChange)="onChange($event, 'store')"
+                    >
+                        <mat-option
+                            *ngFor="let item of stores"
+                            [value]="item.id"
+                        >
+                            {{ item.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="filter-field">
+                <div class="mb-3 label">Thời gian</div>
+                <mat-form-field class="w-full">
+                    <mat-select
+                        [value]="filterParams.byDate"
+                        (valueChange)="onChangeByDate($event)"
+                    >
+                        <mat-option [value]="null"> </mat-option>
+                        <mat-option
+                            *ngFor="let item of times"
+                            [value]="item.id"
+                        >
+                            {{ item.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div
+                class="filter-field p-3 rounded-md bg-slate-700 mb-3"
+                [formGroup]="dateForm"
+            >
+                <div class="mb-2 label">
+                    Hoặc chọn một khoảng ngày bất kỳ, nhưng không quá 90 ngày
+                </div>
+                <div class="field">
+                    <mat-form-field class="w-full mat-form-field__datepicker">
+                        <input
+                            #inputFromDate
+                            matInput
+                            autocomplete="off"
+                            placeholder="Từ ngày"
+                            [min]="minStartDate()"
+                            [max]="maxStartDate()"
+                            [value]="filterParams.startDate"
+                            [matDatepicker]="startDate"
+                            [formControlName]="'startDate'"
+                            (dateChange)="onChange($event.value, 'startDate')"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="startDate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #startDate> </mat-datepicker>
+                        <mat-error
+                            *ngIf="
+                                dateForm.get('startDate').errors
+                                    ?.matDatepickerParse
+                            "
+                        >
+                            Thời gian lấy dữ liệu không đúng
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="field">
+                    <mat-form-field
+                        class="w-full mat-form-field__datepicker mat-form-field__to-date"
+                    >
+                        <input
+                            #inputToDate
+                            matInput
+                            autocomplete="off"
+                            placeholder="Đến ngày"
+                            [value]="filterParams.endDate"
+                            [min]="minEnDate()"
+                            [max]="maxEndDate()"
+                            [matDatepicker]="endDate"
+                            [formControlName]="'endDate'"
+                            (dateChange)="onChange($event.value, 'endDate')"
+                        />
+                        <mat-datepicker-toggle matSuffix [for]="endDate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #endDate> </mat-datepicker>
+                        <mat-error
+                            *ngIf="
+                                dateForm.get('endDate').errors
+                                    ?.matDatepickerParse
+                            "
+                        >
+                            Thời gian lấy dữ liệu không đúng
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-error
+                        class="text-[12px]"
+                        *ngIf="
+                            !dateForm.get('startDate').errors
+                                ?.matDatepickerParse &&
+                            !dateForm.get('endDate').errors
+                                ?.matDatepickerParse &&
+                            (dateForm.get('startDate').errors
+                                ?.matDatepickerMin ||
+                                dateForm.get('startDate').errors
+                                    ?.matDatepickerMax ||
+                                dateForm.get('endDate').errors
+                                    ?.matDatepickerMin ||
+                                dateForm.get('endDate').errors
+                                    ?.matDatepickerMax)
+                        "
+                    >
+                        {{ dayCalculator() }}
+                    </mat-error>
+                </div>
+            </div>
+            <div class="filter-field mb-3">
+                <div class="mb-2 label">Giới tính</div>
+                <mat-button-toggle-group
+                    multiple
+                    class="grid grid-cols-2"
+                    [value]="filterParams.gender"
+                    (change)="onChange($event.value, 'gender')"
+                >
+                    <mat-button-toggle
+                        *ngFor="let item of genders"
+                        [value]="item.id"
+                    >
+                        {{ item.name }}
+                        <span class="icon-checked">
+                            <img
+                                src="assets/images/icons/vision-checked.svg"
+                                alt="checked"
+                            />
+                        </span>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+            <div class="filter-field">
+                <div class="mb-2 label">Khoảng tuổi</div>
+                <mat-button-toggle-group
+                    multiple
+                    class="grid grid-cols-2"
+                    [value]="filterParams.ageRange"
+                    (change)="onChange($event.value, 'ageRange')"
+                >
+                    <mat-button-toggle
+                        *ngFor="let item of ages"
+                        [value]="item.id"
+                    >
+                        {{ item.name }}
+                        <span class="icon-checked">
+                            <img
+                                src="assets/images/icons/vision-checked.svg"
+                                alt="checked"
+                            />
+                        </span>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
+        <div class="filter-drawer-action fixed bottom-0 w-[248px] pb-[10px]">
+            <button
+                class="fuse-mat-button w-full mt-2 rounded-md"
+                mat-stroked-button
+                [type]="'button'"
+                [color]="'primary'"
+                (click)="revert()"
+            >
+                Đặt lại
+            </button>
+            <button
+                class="fuse-mat-button w-full mt-2 rounded-md"
+                mat-flat-button
+                [type]="'button'"
+                [color]="'primary'"
+                (click)="onFilter()"
+            >
+                Tìm kiếm
+            </button>
+        </div>
+    </form>
+</div>

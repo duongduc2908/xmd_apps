@@ -1,0 +1,17 @@
+<vai-analytics-wrapper class="w-full" [title]="'Chất lượng nhân viên'">
+    <div class="flex flex-col w-full p-3">
+        <vai-analytics-quick-filter></vai-analytics-quick-filter>
+        <div class="grid grid-cols-3 gap-3 w-full mt-4">
+            <vai-chart-wrapper [title]="rateBeingWelcomedData.title" *ngIf="rateBeingWelcomedData">
+                <vai-circle-wave-chart [chartData]="rateBeingWelcomedData"></vai-circle-wave-chart>
+            </vai-chart-wrapper>
+            <vai-chart-wrapper [title]="rateBeingWelcomedByAgeData.title" *ngIf="rateBeingWelcomedByAgeData">
+                <vai-pie-chart [chartData]="rateBeingWelcomedByAgeData" [displayColumn]="true"></vai-pie-chart>
+            </vai-chart-wrapper>
+            <vai-chart-wrapper class="chart-being-welcome-gender" [title]="rateBeingWelcomedByGenderData.title"
+                *ngIf="rateBeingWelcomedByGenderData">
+                <vai-pie-chart [chartData]="rateBeingWelcomedByGenderData" [displayColumn]="true"></vai-pie-chart>
+            </vai-chart-wrapper>
+        </div>
+    </div>
+</vai-analytics-wrapper>

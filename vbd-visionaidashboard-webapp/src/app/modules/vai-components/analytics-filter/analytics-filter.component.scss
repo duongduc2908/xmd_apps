@@ -1,0 +1,106 @@
+.analytics-filter {
+    &__header {
+        @apply bg-primary;
+
+        .filter-title {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #f6f6f6;
+        }
+    }
+
+    &__content {
+        height: fit-content !important;
+        padding-bottom: 130px !important;
+        overflow: auto;
+
+        .filter-drawer-item {
+            .filter-field {
+                .mat-form-field-flex {
+                    min-height: 40px;
+                }
+
+                .mat-datepicker-input {
+                    padding: 0;
+                }
+
+                .label {
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 16px;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+            }
+        }
+
+        .filter-drawer-action {
+            background-color: #1e293b;
+            z-index: 2;
+        }
+    }
+
+    &__content::ng-deep {
+        .mat-button-toggle-group {
+            .mat-button-toggle {
+                --tw-border-opacity: 1 !important;
+                border-radius: 6px;
+                border: 1px solid !important;
+                border-color: rgb(100 116 139 / var(--tw-border-opacity)) !important;
+
+                .mat-ripple {
+                    border-radius: 0px;
+                }
+
+                .mat-button-toggle-button {
+                    padding: 0 12px;
+
+                    .mat-button-toggle-label-content {
+                        padding: 0;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .icon-checked {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .mat-button-toggle-group > :not([hidden]) ~ :not([hidden]) {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .mat-button-toggle-checked {
+            .mat-button-toggle-button {
+                .icon-checked {
+                    display: block !important;
+                }
+            }
+        }
+
+        mat-button-toggle-group.mat-button-toggle-group-appearance-standard {
+            border-radius: 0px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    }
+
+    .mat-form-field__to-date::ng-deep .mat-form-field-wrapper {
+        margin-bottom: 0;
+    }
+
+    .mat-form-field__datepicker::ng-deep .mat-datepicker-input {
+        padding: 10px 0 !important;
+    }
+    .mat-form-field_error::ng-deep {
+        .mat-form-field-flex {
+            border-color: var(--fuse-warn) !important;
+        }
+    }
+}

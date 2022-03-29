@@ -1,0 +1,65 @@
+<div
+    #VaiChart
+    class="summary-chart grid gap-4 w-full"
+    *ngIf="chartData && chartData.data"
+>
+    <ng-container *ngFor="let chart of chartData.data; index as i">
+        <vai-chart-wrapper
+            [title]="chartData.valueLabels[i]"
+            [tooltip]="chart.tooltipPosition === 'top' && chartData.tooltips[i]"
+        >
+            <div class="chart-bottom flex items-center justify-between">
+                <span class="chart-result inline-block">
+                    <span class="total mr-1">{{ chart.value }}</span>
+                    <span class="unit">{{ chart.valueUnit }}</span>
+                </span>
+                <span class="chart-action inline-block">
+                    <span class="impact flex items-center">
+                        <ng-container *ngIf="chart.valueChangeAction">
+                            <span class="inline-block">
+                                <img
+                                    *ngIf="chart.valueChangeAction === 'up'"
+                                    src="assets/images/icons/vision-arrow-up.svg"
+                                    alt="up"
+                                />
+                                <img
+                                    *ngIf="chart.valueChangeAction === 'down'"
+                                    src="assets/images/icons/vision-arrow-down.svg"
+                                    alt="down"
+                                />
+                            </span>
+                            <span
+                                class="value inline-block"
+                                [ngClass]="{
+                                    'value-down':
+                                        chart.valueChangeAction === 'down',
+                                    'value-up': chart.valueChangeAction === 'up'
+                                }"
+                            >
+                                {{ chart.valueChange }}{{ chart.valueChangeUnit }}
+                            </span>
+                        </ng-container>
+                        <span
+                            class="value inline-block mt-[15px]"
+                            *ngIf="chart.peakRange"
+                        >
+                            {{chart.peakRange}}
+                        </span>
+                        <span
+                            class="tooltip inline-block cursor-pointer"
+                            *ngIf="
+                                chartData.tooltips[i] &&
+                                chart.tooltipPosition === 'bottom'
+                            "
+                            [matTooltip]="chartData.tooltips[i]"
+                        >
+                            <span class="tooltip-mat-icon__wrapper">
+                                <mat-icon svgIcon="mat_outline:help_outline"></mat-icon>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </vai-chart-wrapper>
+    </ng-container>
+</div>

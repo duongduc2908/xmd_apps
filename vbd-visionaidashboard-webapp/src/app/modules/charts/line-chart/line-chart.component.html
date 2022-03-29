@@ -1,0 +1,21 @@
+<div class="flex flex-col">
+    <div echarts
+         class="bar-chart"
+         (chartInit)="onChartInit($event)"
+         [options]="chartOption"
+         [theme]="'dark'"
+         [ngStyle]="{'height.px': chartHeight}"></div>
+    <div class="flex flex-row justify-center mt-4 text-sm">
+        <div class="mr-4" *ngFor="let legend of chartLegend; let i = index">
+           <span class="flex items-center cursor-pointer text-gray-500"
+                 (mouseleave)="onMouseleave(i)"
+                 (mouseenter)="onMouseenter(i)">
+                        <span
+                            class="w-[12px] h-[12px] inline-block mr-2"
+                            [ngStyle]="{'background-color': legend.color}"
+                        ></span>
+                        <span>{{legend.name}}</span>
+                    </span>
+        </div>
+    </div>
+</div>

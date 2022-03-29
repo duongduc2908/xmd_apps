@@ -1,0 +1,35 @@
+<vai-analytics-wrapper class="w-full" [title]="'Chất lượng nhân viên ' + (showroomType === 'vin1s' ? 'Vin1s' : 'Vin3s')">
+    <div class="flex flex-col w-full p-3">
+        <vai-analytics-quick-filter></vai-analytics-quick-filter>
+        <div class="w-full mt-4">
+            <vai-chart-wrapper [title]="rateBeingWelcomedData.title" *ngIf="rateBeingWelcomedData">
+                <vai-chart-wrapper-compare [itemCount]="rateBeingWelcomedData.groupData.length">
+                    <ng-container *ngFor="let item of rateBeingWelcomedData.groupData">
+                        <vai-circle-wave-chart [chartData]="item">
+                        </vai-circle-wave-chart>
+                    </ng-container>
+                </vai-chart-wrapper-compare>
+            </vai-chart-wrapper>
+        </div>
+        <div class="w-full mt-4">
+            <vai-chart-wrapper [title]="rateBeingWelcomedByAgeData.title" *ngIf="rateBeingWelcomedByAgeData">
+                <vai-chart-wrapper-compare [itemCount]="rateBeingWelcomedByAgeData.groupData.length">
+                    <ng-container *ngFor="let item of rateBeingWelcomedByAgeData.groupData">
+                        <vai-pie-chart [chartData]="item" [displayColumn]="true">
+                        </vai-pie-chart>
+                    </ng-container>
+                </vai-chart-wrapper-compare>
+            </vai-chart-wrapper>
+        </div>
+        <div class="w-full mt-4">
+            <vai-chart-wrapper [title]="rateBeingWelcomedByGenderData.title" *ngIf="rateBeingWelcomedByGenderData">
+                <vai-chart-wrapper-compare [itemCount]="rateBeingWelcomedByGenderData.groupData.length">
+                    <ng-container *ngFor="let item of rateBeingWelcomedByGenderData.groupData">
+                        <vai-pie-chart [chartData]="item" [displayColumn]="true">
+                        </vai-pie-chart>
+                    </ng-container>
+                </vai-chart-wrapper-compare>
+            </vai-chart-wrapper>
+        </div>
+    </div>
+</vai-analytics-wrapper>

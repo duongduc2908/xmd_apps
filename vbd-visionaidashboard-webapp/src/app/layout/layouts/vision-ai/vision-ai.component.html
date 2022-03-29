@@ -1,0 +1,36 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+
+<!-- Container -->
+<div class="flex flex-col flex-auto w-full">
+
+    <!-- Header -->
+    <vision-ai-header></vision-ai-header>
+
+    <!-- Main -->
+    <div class="flex flex-row flex-auto w-full">
+
+        <!-- Navigation -->
+        <fuse-vertical-navigation
+            [mode]="isScreenSmall ? 'over' : 'side'"
+            [name]="'mainNavigation'"
+            [navigation]="navigation.default"
+            [opened]="!isScreenSmall"
+            class="print:hidden">
+        </fuse-vertical-navigation>
+
+        <!-- Wrapper -->
+        <div class="flex flex-col flex-auto w-full min-w-0 mt-16">
+            <!-- Breadcrumbs -->
+            <vai-breadcrumbs></vai-breadcrumbs>
+
+            <!-- Content -->
+            <div class="flex flex-col flex-auto">
+                <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+                     Otherwise, layout changes won't be registered and the view won't be updated! -->
+                <router-outlet *ngIf="true"></router-outlet>
+            </div>
+
+        </div>
+    </div>
+</div>

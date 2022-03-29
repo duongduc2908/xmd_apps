@@ -1,0 +1,18 @@
+.legend-item {
+    &:last-child {
+        border-bottom: 1px solid;
+        padding-bottom: 10px;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    border-top: 1px solid;
+    padding-top: 10px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+div[echarts].line-chart-stacked-are::ng-deep {
+    svg > g {
+        text:last-of-type {
+            text-anchor: end !important;
+        }
+    }
+}

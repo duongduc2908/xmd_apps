@@ -1,0 +1,153 @@
+<div class="analytics-quick-filter items-center flex justify-between">
+    <div class="flex flex-col">
+        <div
+        class="flex"
+        [ngClass]="{
+            'items-center': !isFilterDate,
+            'items-start min-h-[70px]': isFilterDate && !isFilterCustomer,
+            'min-h-[50px]': isFilterCustomer
+        }"
+    >
+        <mat-button-toggle-group
+            class="flex flex-wrap gap-[8px] h-[35px]"
+            [value]="filterParams.byDate || manualTimeRangeID"
+            (change)="onFilterChange($event)"
+        >
+            <ng-container *ngFor="let item of times">
+                <mat-button-toggle [value]="item.id">
+                    <span>{{ item.label }}</span>
+                </mat-button-toggle>
+            </ng-container>
+        </mat-button-toggle-group>
+        <div [hidden]="!isFilterDate" [formGroup]="dateForm">
+            <div
+                class="flex ml-[24px] gap-[12px]"
+                [ngClass]="{
+                    'items-start': dateForm.invalid
+                }"
+            >
+                <div
+                    class="text font-normal leading-[24px] text-[14px] mt-[5px]"
+                >
+                    Hoặc chọn
+                </div>
+                <div class="quick-filter-field flex gap-[12px]">
+                    <div class="field">
+                        <mat-form-field class="w-[150px]">
+                            <input
+                                #inputFromDate
+                                matInput
+                                autocomplete="off"
+                                placeholder="Từ ngày"
+                                [value]="filterParams.startDate"
+                                [matDatepicker]="startDate"
+                                [min]="minStartDate()"
+                                [max]="maxStartDate()"
+                                (dateChange)="onChange($event.value, 'startDate')"
+                                [formControlName]="'startDate'"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="startDate">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #startDate> </mat-datepicker>
+                            <mat-error
+                                class="pb-[5px]"
+                                *ngIf="
+                                    dateForm.get('startDate').errors
+                                        ?.matDatepickerParse
+                                "
+                            >
+                                Thời gian lấy dữ liệu không đúng
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-error
+                            class="text-[12px] w-[150px] pb-[5px]"
+                            *ngIf="
+                                !dateForm.get('startDate').errors
+                                    ?.matDatepickerParse &&
+                                !dateForm.get('endDate').errors
+                                    ?.matDatepickerParse &&
+                                (dateForm.get('startDate').errors
+                                    ?.matDatepickerMin ||
+                                    dateForm.get('endDate').errors
+                                        ?.matDatepickerMin ||
+                                    dateForm.get('startDate').errors
+                                        ?.matDatepickerMax ||
+                                    dateForm.get('endDate').errors
+                                        ?.matDatepickerMax)
+                            "
+                        >
+                            {{ dayCalculator() }}
+                        </mat-error>
+                    </div>
+                    <div class="field">
+                        <mat-form-field class="w-[150px]">
+                            <input
+                                #inputToDate
+                                matInput
+                                autocomplete="off"
+                                placeholder="Đến ngày"
+                                [value]="filterParams.endDate"
+                                [matDatepicker]="endDate"
+                                [min]="minEnDate()"
+                                [max]="maxEndDate()"
+                                (dateChange)="onChange($event.value, 'endDate')"
+                                [formControlName]="'endDate'"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="endDate">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #endDate> </mat-datepicker>
+                            <mat-error
+                                class="pb-[5px]"
+                                *ngIf="
+                                    dateForm.get('endDate').errors
+                                        ?.matDatepickerParse
+                                "
+                            >
+                                Thời gian lấy dữ liệu không đúng
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="search">
+                    <button
+                        class="rounded-[6px] h-[32px] min-h-[32px]"
+                        mat-stroked-button
+                        color="primary"
+                        (click)="onSearch()"
+                    >
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-button-toggle-group *ngIf="isFilterCustomer"
+        class="flex flex-wrap gap-[8px] h-[35px]"
+        [value]="filterCustomerValue"
+        (change)="onFilterCustomer($event)"
+    >
+        <ng-container *ngFor="let item of filterCustomerDefine">
+            <mat-button-toggle [value]="item.value">
+                <span>{{ item.label }}</span>
+            </mat-button-toggle>
+        </ng-container>
+    </mat-button-toggle-group>
+    </div>
+
+   
+
+    <div class="vision-quick-filter-time" *ngIf="isFilterLayout">
+        <span class="time text-[14px] font-normal leading-[24px] mr-2">
+            Cập nhật: {{ currentTime }}
+        </span>
+        <button
+            class="rounded-[6px] h-[32px] min-h-[32px]"
+            mat-stroked-button
+            (click)="onForceUpdate()"
+            color="primary"
+        >
+            Cập nhật
+        </button>
+    </div>
+</div>

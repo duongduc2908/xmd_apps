@@ -1,0 +1,14 @@
+<mat-form-field class="w-full">
+    <input
+        #inputFromDate
+        matInput
+        autocomplete="off"
+        placeholder="Từ ngày"
+        [min]="min"
+        [max]="max"
+        [matDatepicker]="datepicker"
+    />
+    <mat-datepicker-toggle matSuffix [for]="datepicker">
+    </mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+</mat-form-field>

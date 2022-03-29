@@ -1,0 +1,36 @@
+<div class="flex flex-row">
+    <div [ngClass]="{'w-[220px]' : isShowLegend, 'w-full': !isShowLegend}">
+        <div class="text-gray-500 text-sm text-center" *ngIf="unit">Đơn vị tính: {{unit}}</div>
+        <div echarts
+             class="bar-chart"
+             (chartInit)="onChartInit($event)"
+             [options]="chartOption"
+             [theme]="'dark'"
+             [ngStyle]="{
+                'height.px': chartHeight,
+                'width.px': isShowLegend ? 220 : null
+            }">
+        </div>
+    </div>
+    <ng-container *ngIf="isShowLegend">
+        <div class="flex items-center justify-center w-full">
+            <div class="text-sm w-full pl-[5px]">
+                <div class="grid grid-cols-5 mb-2"
+                     *ngFor="let legend of chartLegend; let i = index">
+                    <div class="col-span-3">
+                    <span class="flex items-center cursor-pointer text-gray-500"
+                          (mouseleave)="onMouseleave(i)"
+                          (mouseenter)="onMouseenter(i)">
+                        <span
+                            class="min-w-[12px] w-[12px] h-[12px] inline-block mr-2"
+                            [ngStyle]="{'background-color': legend.color}"
+                        ></span>
+                        <span>{{legend.name}}</span>
+                    </span>
+                    </div>
+                    <div class="col-span-2 text-right">{{legend.value}} {{legend.unit}}</div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

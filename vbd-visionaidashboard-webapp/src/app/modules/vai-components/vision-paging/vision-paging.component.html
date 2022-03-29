@@ -1,0 +1,7 @@
+<mat-paginator [length]="paging.length"
+               [pageIndex]="paging.pageIndex"
+               [pageSize]="paging.pageSize"
+               [pageSizeOptions]="[10, 25, 50]"
+               (page)="onPageChange($event)"
+               aria-label="Select page">
+</mat-paginator>

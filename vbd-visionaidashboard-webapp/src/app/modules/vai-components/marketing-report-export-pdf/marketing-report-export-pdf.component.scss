@@ -1,0 +1,43 @@
+.marketing-report-export-pdf {
+    background: #F5FAFF;
+    color: #121212;
+}
+
+.summary-item {
+    &__title {
+        font-size: 14px;
+        color: #353535;
+    }
+
+    &__content {
+        .up {
+            background: #CEEDD1;
+            color: #2DBC15;
+        }
+        .down {
+            background: #F1C8D2;
+            color: #E50B27;
+        }
+    }
+
+    &__desc {
+        color: #353535;
+        font-size: 14px;
+    }
+}
+
+
+.report {
+    &__sub-title {
+        font-size: 14px;
+        color: #7D7D7D;
+    }
+}
+
+.chart-wrapper {
+    margin-top: 56px;
+    &__title {
+        font-size: 20px;
+        line-height: 40px;
+    }
+}

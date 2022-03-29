@@ -1,0 +1,420 @@
+<div class="flex flex-col w-full p-3">
+    <div class="button-filter flex items-center justify-between p-3 mb-3">
+        <div class="text-4xl font-bold">Tạo báo cáo</div>
+    </div>
+    <div class="flex flex-col items-center w-full p-3">
+        <fuse-card class="w-[622px] p-[23px]">
+            <form
+                class="form-report flex flex-col gap-1 w-full"
+                [formGroup]="marketingReportFrom"
+            >
+                <div class="field">
+                    <label class="required">Tên báo cáo</label>
+                    <mat-form-field class="w-full">
+                        <input matInput [formControlName]="'name'" />
+                        <mat-error
+                            *ngIf="
+                                marketingReportFrom
+                                    .get('name')
+                                    .hasError('required')
+                            "
+                        >
+                            Tên báo cáo bắt buộc
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                marketingReportFrom
+                                    .get('name')
+                                    .hasError('maxlength')
+                            "
+                        >
+                            Tên báo không được vượt quá 255 ký tự
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                marketingReportFrom
+                                    .get('name')
+                                    .hasError('serverError')
+                            "
+                        >
+                            <p
+                                class="m-0"
+                                *ngFor="let item of listError.data_file"
+                            >
+                                {{ item }}
+                            </p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="field">
+                    <label class="required">Showroom áp dụng</label>
+                    <div #inputShowroom>
+                        <mat-form-field
+                            class="w-full cursor-pointer"
+                            [ngClass]="{ 'field-expand': storeOpenState }"
+                            (click)="
+                                onToggleSelectStore(); $event.stopPropagation()
+                            "
+                        >
+                            <input
+                                class="cursor-pointer w-full"
+                                autocomplete="off"
+                                readonly
+                                [value]="getStoreName()"
+                            />
+                            <input
+                                style="display: none"
+                                [formControlName]="'stores'"
+                                matInput
+                                readonly
+                            />
+                            <mat-icon
+                                matSuffix
+                                [svgIcon]="
+                                    !storeOpenState
+                                        ? 'heroicons_outline:chevron-down'
+                                        : 'heroicons_outline:chevron-up'
+                                "
+                            >
+                            </mat-icon>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom
+                                        .get('stores')
+                                        .hasError('required')
+                                "
+                            >
+                                Showroom áp dụng cáo bắt buộc
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom
+                                        .get('stores')
+                                        .hasError('serverError')
+                                "
+                            >
+                                <p
+                                    class="m-0"
+                                    *ngFor="let item of listError.data_file"
+                                >
+                                    {{ item }}
+                                </p>
+                            </mat-error>
+                        </mat-form-field>
+                        <div
+                            class="expand-list pr-[24px] pl-[24px] pt-[20px] pb-[20px] z-99"
+                            *ngIf="storeOpenState"
+                        >
+                            <div
+                                class="expand-item mb-[24px]"
+                                *ngFor="let item of stores"
+                            >
+                                <mat-checkbox
+                                    class="expand-item-check-box"
+                                    [color]="'primary'"
+                                    [checked]="isChecked(item.id)"
+                                    (input)="selectStore(item.id)"
+                                >
+                                    {{ item.name }}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="required">Chi phí Marketing</label>
+                    <div class="flex flex-col">
+                        <ng-container
+                            *ngFor="
+                                let item of campains.controls;
+                                let i = index
+                            "
+                            formArrayName="campains"
+                        >
+                            <div
+                                class="grid grid-cols-2 gap-2 w-full"
+                                [formGroup]="item"
+                            >
+                                <mat-form-field class="w-full">
+                                    <input
+                                        matInput
+                                        autocomplete="off"
+                                        formControlName="name"
+                                        placeholder="Tên ngân sách..."
+                                    />
+                                    <mat-icon
+                                        *ngIf="
+                                            i > 0 ||
+                                            campains.controls.length > 1
+                                        "
+                                        class="icon-size-5 cursor-pointer icon-clear"
+                                        matSuffix
+                                        (click)="removeCampaign(i)"
+                                        [svgIcon]="'heroicons_outline:x'"
+                                    >
+                                    </mat-icon>
+                                    <mat-error
+                                        *ngIf="
+                                            item
+                                                .get('name')
+                                                .hasError('required')
+                                        "
+                                    >
+                                        Tên ngân sách bắt buộc
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="w-full">
+                                    <input
+                                        matInput
+                                        autocomplete="off"
+                                        formControlName="fee"
+                                        placeholder="Nhập số tiền..."
+                                        [textMask]="{ mask: numberMask }"
+                                    />
+                                    <span matSuffix>VND</span>
+                                    <mat-error
+                                        *ngIf="
+                                            item.get('fee').hasError('required')
+                                        "
+                                    >
+                                        Số tiền bắt buộc
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                        <button
+                            [type]="'button'"
+                            class="fuse-mat-button rounded-md mat-btn"
+                            type="button"
+                            (click)="addCampaign()"
+                            mat-flat-button
+                        >
+                            Thêm chi phí
+                        </button>
+                    </div>
+                </div>
+                <div class="field date-picker">
+                    <label class="required">Thời gian lấy dữ liệu</label>
+                    <div class="flex gap-[8px]">
+                        <mat-form-field class="w-full">
+                            <input
+                                #inputFromDate
+                                matInput
+                                autocomplete="off"
+                                placeholder="Từ ngày"
+                                [min]="minStartDate()"
+                                [max]="maxStartDate()"
+                                [matDatepicker]="startDate"
+                                [formControlName]="'start_date'"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="startDate">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom
+                                        .get('start_date')
+                                        .hasError('required') &&
+                                    !marketingReportFrom.get('start_date')
+                                        .errors?.matDatepickerParse
+                                "
+                            >
+                                Từ ngày bắt buộc
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom.get('start_date').errors
+                                        ?.matDatepickerParse
+                                "
+                            >
+                                Thời gian lấy dữ liệu không đúng
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom
+                                        .get('start_date')
+                                        .hasError('serverError')
+                                "
+                            >
+                                <p
+                                    class="m-0"
+                                    *ngFor="let item of listError.data_file"
+                                >
+                                    {{ item }}
+                                </p>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full">
+                            <input
+                                #inputToDate
+                                matInput
+                                autocomplete="off"
+                                placeholder="Đến ngày"
+                                [max]="maxEndDate()"
+                                [min]="minEnDate()"
+                                [matDatepicker]="endDate"
+                                [formControlName]="'end_date'"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="endDate">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #endDate></mat-datepicker>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom
+                                        .get('end_date')
+                                        .hasError('required') &&
+                                    !marketingReportFrom.get('end_date').errors
+                                        ?.matDatepickerParse
+                                "
+                            >
+                                Đến ngày bắt buộc
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom.get('end_date').errors
+                                        ?.matDatepickerParse
+                                "
+                            >
+                                Thời gian lấy dữ liệu không đúng
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                    marketingReportFrom
+                                        .get('end_date')
+                                        .hasError('serverError')
+                                "
+                            >
+                                <p
+                                    class="m-0"
+                                    *ngFor="let item of listError.data_file"
+                                >
+                                    {{ item }}
+                                </p>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <mat-error
+                        class="text-[12px] mt-[4px]"
+                        *ngIf="
+                            !marketingReportFrom
+                                .get('start_date')
+                                .hasError('required') &&
+                            !marketingReportFrom
+                                .get('end_date')
+                                .hasError('required') &&
+                            !marketingReportFrom.get('start_date').errors
+                                ?.matDatepickerParse &&
+                            !marketingReportFrom.get('end_date').errors
+                                ?.matDatepickerParse &&
+                            (marketingReportFrom.get('start_date').errors
+                                ?.matDatepickerMin ||
+                                marketingReportFrom.get('end_date').errors
+                                    ?.matDatepickerMin ||
+                                marketingReportFrom.get('start_date').errors
+                                    ?.matDatepickerMax ||
+                                marketingReportFrom.get('end_date').errors
+                                    ?.matDatepickerMax)
+                        "
+                    >
+                        {{ dayCalculator() }}
+                    </mat-error>
+                </div>
+                <div class="field input-file-wrapper">
+                    <label class="required">Dữ liệu báo cáo</label>
+                    <mat-form-field
+                        class="w-full cursor-pointer"
+                        (click)="openFile(fileUpload)"
+                    >
+                        <input
+                            matInput
+                            readonly
+                            class="input-file cursor-pointer"
+                            [value]="fileName"
+                            placeholder="No file selected"
+                            autocomplete="off"
+                            [formControlName]="'data_file'"
+                        />
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            class="icon-color-white"
+                            [svgIcon]="'heroicons_outline:paper-clip'"
+                        >
+                        </mat-icon>
+                        <mat-hint class="mt-[20px] italic">
+                            Chỉ cho phép tải lên tài liệu excel
+                        </mat-hint>
+                        <mat-error
+                            *ngIf="
+                                marketingReportFrom
+                                    .get('data_file')
+                                    .hasError('serverError')
+                            "
+                        >
+                            <p
+                                class="m-0"
+                                *ngFor="let item of listError.data_file"
+                            >
+                                {{ item }}
+                            </p>
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                marketingReportFrom
+                                    .get('data_file')
+                                    .hasError('inValid')
+                            "
+                        >
+                           File không đúng định dạng excel
+                        </mat-error>
+                        <mat-error
+                            *ngIf="
+                                marketingReportFrom
+                                    .get('data_file')
+                                    .hasError('custom-required')
+                            "
+                        >
+                            Dữ liệu báo cáo bắt buộc
+                        </mat-error>
+                        <input
+                            #fileUpload
+                            type="file"
+                            accept=".xlsx, .xls, .csv"
+                            class="file-upload"
+                            (change)="onChangeFile($event)"
+                            [formControlName]="'data_file'"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex gap-[12px] mt-[20px]">
+                    <button
+                        [color]="'primary'"
+                        [type]="'button'"
+                        (click)="onSubmit()"
+                        class="fuse-mat-button rounded-md"
+                        mat-flat-button
+                    >
+                        Lưu & Xuất báo cáo
+                    </button>
+                    <button
+                        [type]="'button'"
+                        (click)="onPreview()"
+                        class="fuse-mat-button rounded-md mat-btn"
+                        mat-flat-button
+                    >
+                        Xem trước
+                    </button>
+                    <button
+                        (click)="resetForm()"
+                        [type]="'button'"
+                        class="fuse-mat-button rounded-md mat-btn"
+                        mat-flat-button
+                    >
+                        Hủy
+                    </button>
+                </div>
+            </form>
+        </fuse-card>
+    </div>
+    <vai-report-viewer-helper #reportViewerHelper></vai-report-viewer-helper>
+</div>

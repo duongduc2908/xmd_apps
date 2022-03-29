@@ -1,0 +1,32 @@
+.expand-list {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    .expand-item {
+        &:last-child {
+            margin: 0 !important;
+        }
+    }
+}
+
+::ng-deep {
+    .form-report {
+        .date-picker {
+            .mat-form-field {
+                .mat-form-field-wrapper {
+                    margin-bottom: 0;
+                }
+            }
+            margin-bottom: 16px;
+        }
+        .required {
+            &::after {
+                content: ' *';
+                color: var(--fuse-warn);
+            }
+        }
+        .mat-error {
+            padding-bottom: 4px;
+        }
+    }
+}

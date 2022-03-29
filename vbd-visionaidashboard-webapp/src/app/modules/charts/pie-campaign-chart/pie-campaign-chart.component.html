@@ -1,0 +1,23 @@
+<div [ngClass]="{'h-full flex flex-col justify-center': displayColumn, 'grid grid-cols-2': !displayColumn }">
+    <div class="relative">
+        <div class="flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full">
+            <div class="font-bold text-[14px]">{{total | numberWithComma}} {{chartLegend && chartLegend.length? chartLegend[0].unit : ''}}</div>
+            <div class="text-center">Tổng chi phí<br>Marketing</div>
+        </div>
+        <div echarts class="pie-chart" (chartInit)="onChartInit($event)" [options]="chartOption" [theme]="'dark'"
+             [ngStyle]="{ 'height.px': chartHeight }"></div>
+    </div>
+    <div class="mt-4 text-sm text-center">
+        <div class="font-bold inline-block text-left">
+            <ng-container *ngFor="let legend of chartLegend; let i = index">
+                <span class="flex items-center cursor-pointer leading-[28px] inline-block"
+                    (mouseleave)="onMouseleave(i)"
+                    (mouseenter)="onMouseenter(i)">
+                    <span class="w-[12px] h-[12px] inline-block mr-2 html2canvas-hotfix-1"
+                          [ngStyle]="{ 'background-color': legend.color }"></span>
+                    <span>{{legend.name}}: {{legend.value | numberWithComma}} {{legend.unit}}</span>
+                </span>
+            </ng-container>
+        </div>
+    </div>
+</div>

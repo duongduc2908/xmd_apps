@@ -1,0 +1,21 @@
+<fuse-card class="flex flex-col px-4 py-6 pb-4 h-full">
+    <div class="text-lg flex justify-between items-center">
+        <span
+            class="title inline-block truncate text-[16px] leading-[24px] font-[600]"
+        >
+            {{ title }}
+        </span>
+        <span
+            class="tooltip inline-block cursor-pointer"
+            *ngIf="tooltip"
+            [matTooltip]="tooltip || ''"
+        >
+            <span class="tooltip-mat-icon__wrapper">
+                <mat-icon svgIcon="mat_outline:help_outline"></mat-icon>
+            </span>
+        </span>
+    </div>
+    <div class="mt-2 h-full">
+        <ng-content></ng-content>
+    </div>
+</fuse-card>

@@ -1,0 +1,25 @@
+<div class="flex flex-col">
+    <div echarts
+         class="bar-chart"
+         (chartInit)="onChartInit($event)"
+         [options]="chartOption"
+         [theme]="'dark'"
+         [ngStyle]="{'height.px': chartHeight}"></div>
+    <div class="flex flex-row justify-center mt-4 text-sm">
+        <div
+            class="flex flex-row items-center cursor-pointer mr-4"
+            (mouseleave)="onMouseleave(0)"
+            (mouseenter)="onMouseenter(0)"
+        >
+            <span class="w-[12px] h-[4px] inline-block mr-2 html2canvas-hotfix-2" style="background: #5A3FFF"></span>Đơn hàng
+        </div>
+        <div
+            class="flex flex-row items-center cursor-pointer"
+            (mouseleave)="onMouseleave(1)"
+            (mouseenter)="onMouseenter(1)"
+        >
+            <span class="w-[12px] h-[12px] inline-block mr-2 html2canvas-hotfix-2" style="background: rgba(49, 151, 255, 0.2)"></span>
+            <span>Footfall</span>
+        </div>
+    </div>
+</div>

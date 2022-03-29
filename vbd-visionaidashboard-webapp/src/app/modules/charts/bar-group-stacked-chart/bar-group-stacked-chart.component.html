@@ -1,0 +1,54 @@
+<div class="grid grid-cols-2 gap-2">
+    <div
+        echarts
+        class="line-chart-stacked-are"
+        [initOpts]="{ renderer: 'svg' }"
+        [ngStyle]="{ 'height.px': chartHeight }"
+        [options]="chartOption"
+        [theme]="'dark'"
+        (chartInit)="onChartInit($event)"
+    ></div>
+    <div class="w-full pl-4 mt-4 text-sm">
+        <div
+            class="grid grid-cols-5 mb-2 legend-item"
+            *ngFor="let legend of chartLegend; let i = index"
+        >
+            <div class="col-span-3">
+                    <span
+                        class="flex items-center cursor-pointer text-white"
+                        (mouseleave)="onMouseleave(i)"
+                        (mouseenter)="onMouseenter(i)"
+                    >
+                        <span
+                            class="w-[12px] h-[12px] inline-block mr-2"
+                            [ngStyle]="{ 'background-color': legend.color }"
+                        >
+                        </span>
+                        <span>{{ legend.name }}</span>
+                    </span>
+            </div>
+            <div class="col-span-1 text-right">{{ legend.total }}</div>
+            <div class="col-span-1 text-right">
+                {{ legend.total | calcPercent:totalSeries }}
+            </div>
+            <div
+                class="value-action-name col-span-5"
+                *ngFor="let item of legend.valueUnit; let j = index"
+            >
+                <div class="grid grid-cols-5 text-[#A0A0A0]">
+                    <div class="flex items-center col-span-3">
+                            <span class="w-[12px] h-[12px] inline-block mr-2">
+                            </span>
+                            <span>{{ item }}</span>
+                    </div>
+                    <div class="col-span-1 text-right">
+                        {{ legend.value[j] }}
+                    </div>
+                    <div class="col-span-1 text-right">
+                        {{ legend.value[j] | calcPercent:legend.total }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
