@@ -511,6 +511,7 @@ def get_logs(request):
                 "image_show_out": logsCustomer['frame_full_out'],
                 "in_time": logsCustomer['in_time'],
                 "out_time": logsCustomer['out_time'],
+                'total_time': str(logsCustomer['total_time']) + ' phút' if logsCustomer['total_time'] else '',
                 "gender": next(
                     filter(lambda gender: gender["id"] == logsCustomer['gender'], const.genders), {"name": None}
                 )["name"],

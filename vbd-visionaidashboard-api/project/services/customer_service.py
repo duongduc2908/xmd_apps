@@ -421,7 +421,6 @@ def countComeBackQuest(data=list, store=None):
 
 def searchLogsCustomer(dateRange=dict, store=int, conditions=dict, typesearch='all'):
     query = baseSearchVisitTurn(dateRange,store,conditions)
-    print(len(list(query)))
     query = query.select_related('event_in').filter(site_id__in=store).order_by('in_time')
     
     if typesearch == 'matching':
@@ -437,7 +436,8 @@ def searchLogsCustomer(dateRange=dict, store=int, conditions=dict, typesearch='a
             'in_time': visit_in.in_time,
             'out_time': visit_in.out_time,
             'gender': visit_in.gender,
-            'age_range_id': visit_in.age_range_id
+            'age_range_id': visit_in.age_range_id,
+            'total_time': visit_in.total_time
         }
         logs_customer.append(i)
     

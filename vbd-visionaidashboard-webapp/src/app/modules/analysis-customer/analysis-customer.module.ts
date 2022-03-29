@@ -24,6 +24,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CONST } from '../../app.constants';
 
+
 const routers: Route[] = [
   {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
   {
@@ -90,7 +91,8 @@ const routers: Route[] = [
     MatCheckboxModule,
     SharedModule,
     MatMomentDateModule,
-    TextMaskModule,
+    TextMaskModule
+    
   ],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

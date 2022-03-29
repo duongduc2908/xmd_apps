@@ -48,6 +48,18 @@ export class FormMarketingReportComponent implements OnInit, AfterViewInit, OnDe
     allowDecimal: true,
     decimalLimit: 10,
   });
+
+  cars = [
+    { id: 1, name: "BMW Hyundai" },
+    { id: 2, name: "Kia Tata" },
+    { id: 3, name: "Volkswagen Ford" },
+    { id: 4, name: "Renault Audi" },
+    { id: 5, name: "Mercedes Benz Skoda" },
+  ];
+  
+  selected = [{ id: 3, name: "Volkswagen Ford" }];
+
+  
   maskedInputFromController;
   maskedInputToController;
   private file = null;

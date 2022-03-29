@@ -1,7 +1,7 @@
 /* eslint-disable */
 export const CONST = Object.freeze({
   URL: {
-    BASE: 'http://10.124.64.120:8008/api',
+    BASE: 'http://0.0.0.0:8000/api',
   },
   TIME_RANGE_MANUAL_ID: 999999999999,
   DATE_INPUT_FORMAT: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],

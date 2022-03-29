@@ -47,6 +47,12 @@ export class LogsCustomerCustomerActivitiesComponent implements OnInit, OnDestro
       key: 'out_time',
     },
     {
+      columName: 'total_time',
+      columnLabel: 'Tổng thời gian trong cửa hàng',
+      type: 'text',
+      key: 'total_time',
+    },
+    {
       columName: 'gender',
       columnLabel: 'Giới tính',
       type: 'text',
